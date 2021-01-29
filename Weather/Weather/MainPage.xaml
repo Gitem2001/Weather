@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Weather.MainPage" >
+             x:Class="Weather.MainPage"
+             xmlns:mylocal="clr-namespace:Weather.Models">
 
-    <ContentPage.Resources>
+    <MasterDetailPage.Resources>
         <ResourceDictionary>
             <!--Style for icons-->
             <Style x:Key="icon" TargetType="Image">
@@ -23,16 +24,85 @@
                 <Setter Property="Margin" Value="0, 10, 0, 10"/>
             </Style>
         </ResourceDictionary>
-    </ContentPage.Resources>
+    </MasterDetailPage.Resources>
+
+    <MasterDetailPage.Master>
+        <ContentPage Title="Прогноз погоды">
+            <Grid VerticalOptions="FillAndExpand"
+                  HorizontalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Image Source="Gradient.xml"
+                       VerticalOptions="FillAndExpand"
+                       HorizontalOptions="FillAndExpand"
+                       Grid.RowSpan="2"/>
+                <Grid Grid.Row="0">
+                    <Frame Grid.Row="0"
+                       BackgroundColor="White"
+                       Margin="10, 10, 10, 20"
+                       CornerRadius="15"
+                       Padding="10, 0, 0, 0">
+                        <Grid Padding="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Editor Grid.Column="0"
+                                    VerticalOptions="Fill"
+                                    Margin="0"
+                                    x:Name="editor"
+                                    TextColor="Black"
+                                    FontFamily="KonkordRetro.ttf#KonkordRetro"/>
+                            <ImageButton Grid.Column="1"
+                                     Source="src_btn.png"
+                                     HeightRequest="35"
+                                     WidthRequest="35"
+                                     BackgroundColor="Transparent"
+									 Clicked="src_Clicked"/>
+                            <ImageButton Grid.Column="2"
+                                    Source="geo_btn.png"
+                                    HeightRequest="35"
+                                    WidthRequest="35"
+                                    BackgroundColor="Transparent"
+									Clicked="geo_Clicked"/>
+                        </Grid>
+                    </Frame>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <ListView SelectionMode="Single"
+                              SeparatorColor="White"
+                              BackgroundColor="Transparent"
+                              x:Name="list"
+                              ItemTapped="list_ItemTapped">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextCell Text="{Binding .}"
+                                          TextColor="White"
+                                          DetailColor="Azure"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </Grid>
+        </ContentPage>
+    </MasterDetailPage.Master>
     
-    <ContentPage.Content>
-        <Grid>
+    <MasterDetailPage.Detail>
+        <ContentPage>
+            <Grid Margin="0"
+              Padding="0">
             <Image Aspect="AspectFill"
                    Source="bg.gif"/>
             <ScrollView HorizontalOptions="FillAndExpand"
                     VerticalOptions="FillAndExpand"
-                    Orientation="Vertical">
-                <Grid>
+                    Orientation="Vertical"
+                    HorizontalScrollBarVisibility="Never"
+                    VerticalScrollBarVisibility="Never">
+                <Grid Margin="0"
+                      Padding="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
@@ -57,15 +127,13 @@
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
                             <Label x:Name="City_Name"
-                       Text="Владивосток"
-                       TextColor="White"
+                       TextColor="White"  
                        FontSize="20"
                        HorizontalTextAlignment="Center"
                        VerticalTextAlignment="Center"/>
                         </Grid>
                         <Grid Grid.Row="1">
                             <Label x:Name="Current_Temperature"
-                       Text="-11"
                        TextColor="White"
                        FontSize="60"
                        HorizontalTextAlignment="Center"
@@ -75,7 +143,7 @@
                               Margin="10, 0, 10, 0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="1">
@@ -86,7 +154,6 @@
                                 </Grid.ColumnDefinitions>
                                 <Grid Grid.Column="0">
                                     <Label x:Name="Temperature_Min"
-                                           Text="-6 "
                                            TextColor="White"
                                            FontSize="16"
                                            HorizontalTextAlignment="Center"
@@ -102,7 +169,6 @@
                                 </Grid>
                                 <Grid Grid.Column="2">
                                     <Label x:Name="Temperature_Max"
-                                           Text="-17"
                                            TextColor="White"
                                            FontSize="16"
                                            HorizontalTextAlignment="Center"
@@ -112,7 +178,6 @@
                         </Grid>
                         <Grid Grid.Row="3">
                             <Label x:Name="Description_Weather"
-                       Text="Ясно"
                        TextColor="White"
                        FontSize="16"
                        HorizontalTextAlignment="Center"
@@ -126,38 +191,56 @@
                         <BoxView Style="{StaticResource separator}"/>
                     </Grid>
                     <!--Разделитель-->
-                    <!--Погода на день-->
+                    <!--Погода по часам-->
                     <Grid Grid.Row="2"
-                      Margin="10, 0, 10, 0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid Grid.Row="0">
-                            <Label 
-                           Text="22:00"
-                           TextColor="White"
-                           FontSize="16"
-                           HorizontalTextAlignment="Center"
-                           VerticalTextAlignment="Center"/>
-                        </Grid>
-                        <Grid Grid.Row="1">
-                            <Label 
-                           Text="Img"
-                           TextColor="White"
-                           FontSize="40"
-                           HorizontalTextAlignment="Center"
-                           VerticalTextAlignment="Center"/>
-                        </Grid>
-                        <Grid Grid.Row="2">
-                            <Label 
-                           Text="-11"
-                           TextColor="White"
-                           FontSize="16"
-                           HorizontalTextAlignment="Center"
-                           VerticalTextAlignment="Center"/>
-                        </Grid>
+                          Margin="0"
+                          Padding="0"
+                          RowSpacing="0"
+                          ColumnSpacing="0">
+                        <ScrollView Orientation="Horizontal"
+                                    HorizontalOptions="FillAndExpand"
+                                    Margin="0"
+                                    Padding="0"
+                                    HorizontalScrollBarVisibility="Never"
+                                    VerticalScrollBarVisibility="Never">
+                            <StackLayout Orientation="Horizontal"
+                                         HorizontalOptions="FillAndExpand"
+                                         x:Name="hourly"
+                                         x:DataType="mylocal:MyDisplayInfo"
+                                         Margin="0"
+                                         Padding="0">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout Margin="0"
+                                                     Padding="0">
+                                            <Frame BackgroundColor="Transparent">
+                                                <Grid Margin="0"
+                                                      Padding="0"
+                                                      RowSpacing="0">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                    </Grid.RowDefinitions>
+                                                    <Label Grid.Row="0"
+                                                           Text="{Binding data}"
+                                                           HorizontalOptions="Center"
+                                                           VerticalOptions="Center"/>
+                                                    <Image Grid.Row="1"
+                                                           Source="{Binding path}"
+                                                           HorizontalOptions="Center"
+                                                           VerticalOptions="Center"/>
+                                                    <Label Grid.Row="2"
+                                                           Text="{Binding temp}"
+                                                           HorizontalOptions="Center"
+                                                           VerticalOptions="Center"/>
+                                                </Grid>
+                                            </Frame>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+                        </ScrollView>
                     </Grid>
                     <!--Погода на день-->
                     <!--Разделитель-->
@@ -169,35 +252,46 @@
                     <!-- Погода на неделю -->
                     <Grid Grid.Row="4"
                       Margin="10, 0, 10, 0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0" HorizontalOptions="FillAndExpand">
-                            <Label 
-                           Text="Data"
-                           TextColor="White"
-                           FontSize="16"
-                           HorizontalTextAlignment="Start"
-                           VerticalTextAlignment="Center"/>
-                        </Grid>
-                        <Grid Grid.Column="1" HorizontalOptions="FillAndExpand">
-                            <Label
-                           Text="Img"
-                           TextColor="White"
-                           FontSize="40"
-                           HorizontalTextAlignment="Center"
-                           VerticalTextAlignment="Center"/>
-                        </Grid>
-                        <Grid Grid.Column="2" HorizontalOptions="FillAndExpand">
-                            <Label 
-                           Text="-11"
-                           TextColor="White"
-                           FontSize="16"
-                           HorizontalTextAlignment="End"
-                           VerticalTextAlignment="Center"/>
-                        </Grid>
+                        <StackLayout Orientation="Vertical"
+                                         HorizontalOptions="FillAndExpand"
+                                         x:Name="daily"
+                                         x:DataType="mylocal:MyDisplayInfo"
+                                         Margin="0"
+                                         Padding="0">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Margin="0"
+                                                 Padding="0">
+                                        <Frame BackgroundColor="Transparent">
+                                            <Grid Margin="0"
+                                                      Padding="0"
+                                                      RowSpacing="0"
+                                                      ColumnSpacing="0"
+                                                      HorizontalOptions="FillAndExpand">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="2*"/>
+                                                    <ColumnDefinition Width="1*"/>
+                                                    <ColumnDefinition Width="2*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Label Grid.Column="0"
+                                                           Text="{Binding data}"
+                                                           HorizontalOptions="Start"
+                                                           VerticalOptions="Center"/>
+                                                <Image Grid.Column="1"
+                                                           Source="{Binding path}"
+                                                           HorizontalOptions="Center"
+                                                           VerticalOptions="Center"/>
+                                                <Label Grid.Column="2"
+                                                           Text="{Binding temp}"
+                                                           HorizontalOptions="Center"
+                                                           VerticalOptions="Center"/>
+                                            </Grid>
+                                        </Frame>
+                                        <BoxView Style="{StaticResource separator}"/>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
                     </Grid>
                     <!-- Погода на неделю -->
                     <!-- Влажность-->
@@ -359,5 +453,6 @@
                 </Grid>
             </ScrollView>
         </Grid>
-    </ContentPage.Content>
-</ContentPage>
+        </ContentPage>
+    </MasterDetailPage.Detail>
+</MasterDetailPage>
