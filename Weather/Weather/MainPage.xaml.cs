@@ -19,9 +19,9 @@ namespace Weather
             InitializeComponent();
             Rotate_wind_mill_deg.Rotation = 0;
             GetWeather();
-            Device.StartTimer(TimeSpan.FromSeconds(1.0/(15*Wind_mill_speed)), () =>
+            Device.StartTimer(TimeSpan.FromSeconds(1.0/(20*Wind_mill_speed)), () =>
             {
-                Rotate_wind_mill_deg.Rotation += 0.3;
+                Rotate_wind_mill_deg.Rotation = (Rotate_wind_mill_deg.Rotation + 0.3) % 360;
                 return true;
             });
         } 
