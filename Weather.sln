@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weather.Android", "Weather\Weather.Android\Weather.Android.csproj", "{6832A765-3D14-46C4-813E-12957E188015}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weather", "Weather\Weather\Weather.csproj", "{A4258C6E-268A-4676-9342-932F46F5B29D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6832A765-3D14-46C4-813E-12957E188015}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6832A765-3D14-46C4-813E-12957E188015}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6832A765-3D14-46C4-813E-12957E188015}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{6832A765-3D14-46C4-813E-12957E188015}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6832A765-3D14-46C4-813E-12957E188015}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6832A765-3D14-46C4-813E-12957E188015}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{A4258C6E-268A-4676-9342-932F46F5B29D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4258C6E-268A-4676-9342-932F46F5B29D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4258C6E-268A-4676-9342-932F46F5B29D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{A4258C6E-268A-4676-9342-932F46F5B29D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4258C6E-268A-4676-9342-932F46F5B29D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4258C6E-268A-4676-9342-932F46F5B29D}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8F7A91EC-D424-4676-9B8B-E444C098375C}
+	EndGlobalSection
+EndGlobal
